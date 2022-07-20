@@ -62,7 +62,49 @@ class LinkedList
     current_node.value
   end
 
-  def pop() end 
+  def pop
+    current_node = @first_node
+    last_node = @last_node
+
+    current_node = current_node.next_node until current_node.next_node == @last_node
+    current_node.next_node = nil
+    @last_node = current_node
+    last_node
+  end
+
+  def contains?(value)
+    current_node = @first_node
+    while current_node
+      return true if current_node.value == value
+
+      current_node = current_node.next_node
+    end
+
+    false
+  end
+
+  def find(value)
+    current_node = @first_node
+    counter = 0
+    while current_node
+      return counter if current_node.value == value
+
+      counter += 1
+      current_node = current_node.next_node
+    end
+    nil
+  end
+
+  def to_s
+    current_node = @first_node
+    string = ''
+    while current_node
+      string += "( #{current_node.value} ) -> "
+      current_node = current_node.next_node
+    end
+    string += 'nil'
+    string
+  end
 end
 
 list = LinkedList.new
@@ -75,3 +117,7 @@ p list
 p list.head
 p list.tail
 p list.at(2)
+p list.pop
+p list.contains?(5)
+p list.find(5)
+p list.to_s
