@@ -105,19 +105,34 @@ class LinkedList
     string += 'nil'
     string
   end
-end
 
-list = LinkedList.new
-list.append(2)
-list.prepend(1)
-list.append(3)
-list.append(4)
-p list.size
-p list
-p list.head
-p list.tail
-p list.at(2)
-p list.pop
-p list.contains?(5)
-p list.find(5)
-p list.to_s
+  def insert_at(value, index)
+    return nil unless @first_node 
+
+    current_node = @first_node
+    counter = 0
+    while counter < index - 1 && !current_node.next_node.nil?
+      current_node = current_node.next_node
+      counter += 1
+    end
+    return nil if current_node.next_node.nil?
+
+    new_node = Node.new(value)
+    new_node.next_node = current_node.next_node
+    current_node.next_node = new_node
+  end
+
+  def remove_at(index)
+    return nil unless @first_node
+
+    current_node = @first_node
+    counter = 0
+    while counter < index - 1 && !current_node.next_node.nil?
+      current_node = current_node.next_node
+      counter += 1
+    end
+    return nil if current_node.next_node.nil?
+
+    current_node.next_node = current_node.next_node.next_node
+  end
+end
